@@ -1,0 +1,17 @@
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.DAL.deps.json
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.DAL.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.DAL.pdb
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.csproj.AssemblyReference.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.AssemblyInfoInputs.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.AssemblyInfo.cs
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.csproj.CoreCompileInputs.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.A2DAEE57.Up2Date
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\refint\ToDoList.DAL.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.pdb
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ref\ToDoList.DAL.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.Domain.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.Domain.pdb
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.DAL.runtimeconfig.json
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.genruntimeconfig.cache

@@ -1,0 +1,184 @@
+﻿@using ToDoList.Domain.Enum
+@{
+    ViewData["Title"] = "Створення завдання";
+}
+
+
+<h4 class="mb-3 text-muted">Створення завдання</h4>
+<form id="createTaskForm">
+    <div class="mb-3">
+        <label class="form-label">Назва завдання</label>
+        <input name="name" type="text" class="form-control"/>
+    </div>
+    <label class="form-label">Пріоритет завдання</label>
+    <select name="priority" class="form-select mb-3" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+    <div class="mb-3">
+        <label class="form-label">Опис завдання</label>
+        <textarea name="description" type="text" class="form-control" rows="3"></textarea>
+    </div>
+    <button id="createTask" class="btn btn-primary">Створити</button>
+</form>
+
+<br/>
+
+<div class="row">
+    <div class="row-group col-md-6">
+        <label class="col-form-label">Назва</label>
+        <input name="nameTask" type="text" class="form-control">
+    </div>
+    <div class="row-group col-md-6">
+        <label class="col-form-label">Пріоритет</label>
+        <select id="prioritySearch" class="form-control mb-3" asp-items="Html.GetEnumSelectList<Priority>()">
+            <option value="">Усі</option>
+        </select>
+    </div>    
+</div>
+
+<br/>
+
+<table class="table table-dark table-hover" id="taskTableId">
+    <thead>
+    <tr>
+        <th>Назва</th>
+        <th>Складність</th>
+        <th>Опис</th>
+        <th>Стадія виконання</th>
+        <th>Дія</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/2.1.3/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+    
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+          },
+          buttonsStyling: false
+        });
+        
+        
+
+    
+         window.dataTable = $('#taskTableId').DataTable({
+            info: false,
+            serverSide: true,
+            searching: false,
+            paging: true,
+            sorting: false,
+            ajax: {
+                url: "@Url.Action("TaskHandler")",
+                method: "Post",
+                data: {
+                         Name: $('input[name="nameTask"]').val(),
+                         priority: $('#prioritySearch option:selected').val(),
+                       },
+            }, 
+            columns: [
+                { data: 'name'},
+                { data: 'priority'},
+                { data: 'description'},
+                { data: 'isDone'},
+                {
+                    data: null,
+                    sortable: false,
+                    render: function(data, type) {
+                      return '<button class="btn btn-success btn-sm center-block">Виконати</button>'
+                    }
+                },
+            ],
+            createdRow: function (nRow, data){
+                
+                var handlerComplete = function () {
+                            swalWithBootstrapButtons.fire({
+                                title: "Завершити завдання?",
+                                text: "Я виконав це завдання і хочу викреслити його зі свого переліку завдань",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Так",
+                                cancelButtonText: "Ні",
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '@Url.Action("EndTask")',
+                                        data: { id: data.id},
+                                        success: function (response) {
+                                            Swal.fire({
+                                                title: 'Інформація',
+                                                text: response.description,
+                                                icon: 'success',
+                                                confirmButtonText: 'Добре'
+                                            })
+                                            window.dataTable.draw();
+                                        },
+                                        error: function (response) {
+                                            Swal.fire({
+                                                title: 'Інформація',
+                                                text: response.responseJSON.description,
+                                                icon: 'error',
+                                                confirmButtonText: 'Добре'
+                                            })
+                                        }
+                                    })
+                                } else if (result.dismiss === Swal.DismissReason.cancel){}
+                            });
+                        }
+                        
+                        
+                for (var i = 0; i < dataTable.columns().header().length - 1; i++){
+                    $('td', nRow).eq(i).css('cursor', 'pointer');
+                    
+                    $('td', nRow).eq(i).on('click', null);
+                }
+                $('td button', nRow).on('click', handlerComplete);
+            }
+        });
+        
+        
+        $('input[name="nameTask"]').on('change', function (){
+            window.dataTable.draw();
+        })
+        
+        $('#prioritySearch').on('change', function (){
+            window.dataTable.draw();
+        })
+    
+    
+        $('#createTask').on('click', function (e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Task")',
+                data: $('#createTaskForm').serialize(),
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Інформація',
+                        text: response.description,
+                        icon: 'success',
+                        confirmButtonText: 'Добре'
+                    })
+                    window.dataTable.draw();
+                },
+                error: function (response) {
+                     Swal.fire({
+                        title: 'Інформація',
+                        text: response.responseJSON.description,
+                        icon: 'error',
+                        confirmButtonText: 'Добре'
+                     })
+                }
+            })
+        });
+    </script>
+}
