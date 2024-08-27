@@ -17,3 +17,4 @@ C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Service\bin\Debug\net8.0\To
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Service\obj\Debug\net8.0\ToDoList.0AE03B1F.Up2Date
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Service\bin\Debug\net8.0\ToDoList.Service.runtimeconfig.json
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Service\obj\Debug\net8.0\ToDoList.Service.genruntimeconfig.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Service\obj\Debug\net8.0\ToDoList.Service.sourcelink.json

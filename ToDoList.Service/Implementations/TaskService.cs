@@ -83,8 +83,8 @@ public class TaskService : ITaskService
                 .Select(x=> new TaskViewModel()
             {
                 Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
+                Name = x.Name.Length > 10 ? x.Name.Substring(0, 9) + ".." : x.Name,
+                Description = x.Description.Length > 10 ? x.Description.Substring(0, 9) + "..." : x.Description,
                 IsDone = x.IsDone == true ? "Виконана" : "Не виконана",
                 Priority = x.Priority.GetDisplayName(),
                 Created = x.Created.ToLongDateString(),
@@ -155,8 +155,8 @@ public class TaskService : ITaskService
                 .Select(x => new TaskCompletedViewModel()
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description
+                    Name = x.Name.Length > 10 ? x.Name.Substring(0, 9) + ".." : x.Name,
+                    Description = x.Description.Length > 10 ? x.Description.Substring(0, 9) + "..." : x.Description,
                 }).ToListAsync();
 
             return new BaseResponse<IEnumerable<TaskCompletedViewModel>>()

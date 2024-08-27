@@ -12,3 +12,4 @@ C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Domain\obj\Debug\net8.0\ToD
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Domain\obj\Debug\net8.0\ref\ToDoList.Domain.dll
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Domain\bin\Debug\net8.0\ToDoList.Domain.runtimeconfig.json
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Domain\obj\Debug\net8.0\ToDoList.Domain.genruntimeconfig.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.Domain\obj\Debug\net8.0\ToDoList.Domain.sourcelink.json

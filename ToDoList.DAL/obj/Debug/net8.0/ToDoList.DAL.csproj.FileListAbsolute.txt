@@ -15,3 +15,4 @@ C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoLi
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.Domain.pdb
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\bin\Debug\net8.0\ToDoList.DAL.runtimeconfig.json
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.genruntimeconfig.cache
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList.DAL\obj\Debug\net8.0\ToDoList.DAL.sourcelink.json
