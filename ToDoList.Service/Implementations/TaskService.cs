@@ -205,4 +205,36 @@ public class TaskService : ITaskService
             };
         }
     }
+
+    public async Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id)
+    {
+        try
+        {
+            var task = await _taskRepository.GetAll().Where(x => x.Id == id)
+                .Select(x => new TaskViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    IsDone = x.IsDone == true ? "Виконана" : "Не виконана",
+                    Priority = x.Priority.GetDisplayName(),
+                    Created = x.Created.ToString(CultureInfo.InvariantCulture),
+                }).FirstOrDefaultAsync();
+
+            return new BaseResponse<TaskViewModel>()
+            {
+                Data = task,
+                StatusCode = StatusCode.OK
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"[TaskService.GetDetailedTask]: {e.Message}");
+            return new BaseResponse<TaskViewModel>()
+            {
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+
 }

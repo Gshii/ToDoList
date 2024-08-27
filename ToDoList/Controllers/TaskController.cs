@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ToDoList.Domain.Filters.Task;
 using ToDoList.Domain.Helpers;
 using ToDoList.Domain.ViewModel;
+using ToDoList.Domain.Enum;
 using ToDoList.Models;
 using ToDoList.Service.Implementations;
 using ToDoList.Service.Interfaces;
@@ -84,5 +85,13 @@ public class TaskController : Controller
 
         return BadRequest(new { description = response.Description});
     }
+
+    public async Task<IActionResult> DetailDescription(long id)
+    {
+        var response = await _taskService.GetDetailedTask(id);
+        
+        return View(response.Data);
+    }
+
 
 }

@@ -65,11 +65,15 @@
           },
           buttonsStyling: false
         });
-        
-        
 
-    
-         window.dataTable = $('#taskTableId').DataTable({
+
+
+        function redirectToDetailPage(id) {
+            window.location.href = '@Url.Action("DetailDescription")' + '?id=' + id;
+        }
+
+
+        window.dataTable = $('#taskTableId').DataTable({
             info: false,
             serverSide: true,
             searching: false,
@@ -97,54 +101,57 @@
                     }
                 },
             ],
-            createdRow: function (nRow, data){
-                
-                var handlerComplete = function () {
-                            swalWithBootstrapButtons.fire({
-                                title: "Завершити завдання?",
-                                text: "Я виконав це завдання і хочу викреслити його зі свого переліку завдань",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonText: "Так",
-                                cancelButtonText: "Ні",
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '@Url.Action("EndTask")',
-                                        data: { id: data.id},
-                                        success: function (response) {
-                                            Swal.fire({
-                                                title: 'Інформація',
-                                                text: response.description,
-                                                icon: 'success',
-                                                confirmButtonText: 'Добре'
-                                            })
-                                            window.dataTable.draw();
-                                        },
-                                        error: function (response) {
-                                            Swal.fire({
-                                                title: 'Інформація',
-                                                text: response.responseJSON.description,
-                                                icon: 'error',
-                                                confirmButtonText: 'Добре'
-                                            })
-                                        }
-                                    })
-                                } else if (result.dismiss === Swal.DismissReason.cancel){}
-                            });
-                        }
-                        
-                        
-                for (var i = 0; i < dataTable.columns().header().length - 1; i++){
-                    $('td', nRow).eq(i).css('cursor', 'pointer');
-                    
-                    $('td', nRow).eq(i).on('click', null);
-                }
-                $('td button', nRow).on('click', handlerComplete);
-            }
-        });
+             createdRow: function (nRow, data){
+                 var handlerComplete = function () {
+                     swalWithBootstrapButtons.fire({
+                         title: "Завершити завдання?",
+                         text: "Я виконав це завдання і хочу викреслити його зі свого переліку завдань",
+                         icon: "warning",
+                         showCancelButton: true,
+                         confirmButtonText: "Так",
+                         cancelButtonText: "Ні",
+                         reverseButtons: true
+                     }).then((result) => {
+                         if (result.isConfirmed) {
+                             $.ajax({
+                                 type: 'POST',
+                                 url: '@Url.Action("EndTask")',
+                                 data: { id: data.id },
+                                 success: function (response) {
+                                     Swal.fire({
+                                         title: 'Інформація',
+                                         text: response.description,
+                                         icon: 'success',
+                                         confirmButtonText: 'Добре'
+                                     });
+                                     window.dataTable.draw();
+                                 },
+                                 error: function (response) {
+                                     Swal.fire({
+                                         title: 'Інформація',
+                                         text: response.responseJSON.description,
+                                         icon: 'error',
+                                         confirmButtonText: 'Добре'
+                                     });
+                                 }
+                             });
+                         } else if (result.dismiss === Swal.DismissReason.cancel) { }
+                     });
+                 };
+
+                 // Use `let` to ensure `data` is correctly captured in each iteration
+                 for (let i = 0; i < window.dataTable.columns().header().length - 1; i++) {
+                     $('td', nRow).eq(i).css('cursor', 'pointer');
+
+                     $('td', nRow).eq(i).on('click', function () {
+                         redirectToDetailPage(data.id);
+                     });
+                 }
+
+                 $('td button', nRow).on('click', handlerComplete);
+             }
+
+         });
         
         
         $('input[name="nameTask"]').on('change', function (){
@@ -181,5 +188,6 @@
                 }
             })
         });
+        
     </script>
 }
