@@ -173,3 +173,4 @@ C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\zh-Hant\Mi
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\obj\Debug\net8.0\ToDoList.sourcelink.json
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll

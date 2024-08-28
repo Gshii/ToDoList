@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore; 
 using Microsoft.Extensions.Logging;
 using ToDoList.DAL.Interfaces;
 using ToDoList.Domain.Entity;
@@ -236,5 +236,78 @@ public class TaskService : ITaskService
             };
         }
     }
+    
+    public async Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id)
+    {
+        try
+        {
+            var task = await _taskRepository.GetByIdAsync(id);
+            var taskview = new TaskViewModel()
+            {
+                Id = task.Id,
+                Name = task.Name,
+                Description = task.Description,
+                IsDone = task.IsDone == true ? "Виконана" : "Не виконана",
+                Priority = task.Priority.GetDisplayName(),
+                Created = task.Created.ToString(CultureInfo.InvariantCulture),
+            };
+
+            return new BaseResponse<TaskViewModel>()
+            {
+                Data = taskview,
+                StatusCode = StatusCode.OK
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"[TaskService.GetDetailedTask]: {e.Message}");
+            return new BaseResponse<TaskViewModel>()
+            {
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+    
+    public async Task<IBaseResponse<bool>> UpdateTask(TaskViewModel model)
+    {
+        try
+        {
+            var task = await _taskRepository.GetByIdAsync(model.Id);
+            if (task == null)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = "Завдання не знайдено",
+                    StatusCode = StatusCode.TaskWasNotFound,
+                    Data = false
+                };
+            }
+
+            task.Name = model.Name;
+            task.Description = model.Description;
+            task.Priority = Enum.Parse<Priority>(model.Priority, true);
+            task.IsDone = model.IsDone == "true" ? true : false;
+            task.Created = DateTime.Now;
+
+            await _taskRepository.Update(task);
+
+            return new BaseResponse<bool>()
+            {
+                StatusCode = StatusCode.OK,
+                Description = "Завдання оновлено",
+                Data = true
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"[TaskService.GetDetailedTask]: {e.Message}");
+            return new BaseResponse<bool>()
+            {
+                StatusCode = StatusCode.InternalServerError
+            };
+        }
+    }
+    
+    
 
 }

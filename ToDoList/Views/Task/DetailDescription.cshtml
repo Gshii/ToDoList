@@ -10,3 +10,5 @@
 <p><strong>Пріоритет:</strong> @Model.Priority</p>
 <p><strong>Опис:</strong> @Model.Description</p>
 <p><strong>Стадія виконання:</strong> @(Model.IsDone)</p>
+
+<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='@Url.Action("TaskEditPage", new { id = Model.Id })'">Редагувати</button>

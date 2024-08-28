@@ -93,5 +93,29 @@ public class TaskController : Controller
         return View(response.Data);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> TaskEditPage(long id)
+    {
+        var task = await _taskService.GetByIdAsync(id);
+        if (task.StatusCode != Domain.Enum.StatusCode.OK || task.Data == null)
+        {
+            return View("Error");
+        }
+        
+        return View(task.Data);
+    }
 
+    [HttpPost]
+    public async Task<IActionResult> TaskEditPage(TaskViewModel model)
+    {
+        if (!ModelState.IsValid && model.Created != null)
+        {
+            ModelState.AddModelError("", "Не можливо змінити");
+            return View(model);
+        }
+
+        await _taskService.UpdateTask(model);
+        return View(model);
+    }
+    
 }

@@ -1,4 +1,5 @@
-﻿using ToDoList.DAL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDoList.DAL.Interfaces;
 using ToDoList.Domain.Entity;
 
 namespace ToDoList.DAL.Repositories;
@@ -34,5 +35,10 @@ public class TaskRepository : IBaseRepository<TaskEntity>
         _appDbContext.Tasks.Update(entity);
         await _appDbContext.SaveChangesAsync();
         return entity;
+    }
+
+    public async Task<TaskEntity> GetByIdAsync(long id)
+    {
+        return await _appDbContext.Tasks.FirstOrDefaultAsync(i => i.Id == id);
     }
 }
