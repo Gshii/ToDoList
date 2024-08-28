@@ -81,88 +81,90 @@
             sorting: false,
             ajax: {
                 url: "@Url.Action("TaskHandler")",
-                method: "Post",
-                data: {
-                         Name: $('input[name="nameTask"]').val(),
-                         priority: $('#prioritySearch option:selected').val(),
-                       },
-            }, 
+                method: "POST",
+                data: function(d) {
+                    // Збирання фільтрів
+                    d.Name = $('input[name="nameTask"]').val();
+                    d.Priority = $('#prioritySearch').val(); // зчитування значення фільтра пріоритету
+                },
+            },
             columns: [
-                { data: 'name'},
-                { data: 'priority'},
-                { data: 'description'},
-                { data: 'isDone'},
+                { data: 'name' },
+                { data: 'priority' },
+                { data: 'description' },
+                { data: 'isDone' },
                 {
                     data: null,
                     sortable: false,
                     className: 'dt-center',
-                    render: function(data, type) {
-                      return '<button class="btn btn-success btn-sm center-block">Виконати</button>'
+                    render: function (data, type) {
+                        return '<button class="btn btn-success btn-sm center-block">Виконати</button>';
                     }
                 },
             ],
-             createdRow: function (nRow, data){
-                 var handlerComplete = function () {
-                     swalWithBootstrapButtons.fire({
-                         title: "Завершити завдання?",
-                         text: "Я виконав це завдання і хочу викреслити його зі свого переліку завдань",
-                         icon: "warning",
-                         showCancelButton: true,
-                         confirmButtonText: "Так",
-                         cancelButtonText: "Ні",
-                         reverseButtons: true
-                     }).then((result) => {
-                         if (result.isConfirmed) {
-                             $.ajax({
-                                 type: 'POST',
-                                 url: '@Url.Action("EndTask")',
-                                 data: { id: data.id },
-                                 success: function (response) {
-                                     Swal.fire({
-                                         title: 'Інформація',
-                                         text: response.description,
-                                         icon: 'success',
-                                         confirmButtonText: 'Добре'
-                                     });
-                                     window.dataTable.draw();
-                                 },
-                                 error: function (response) {
-                                     Swal.fire({
-                                         title: 'Інформація',
-                                         text: response.responseJSON.description,
-                                         icon: 'error',
-                                         confirmButtonText: 'Добре'
-                                     });
-                                 }
-                             });
-                         } else if (result.dismiss === Swal.DismissReason.cancel) { }
-                     });
-                 };
+            createdRow: function (nRow, data) {
+                // Сама логіка обробки рядка залишилася незмінною
+                var handlerComplete = function () {
+                    swalWithBootstrapButtons.fire({
+                        title: "Завершити завдання?",
+                        text: "Я виконав це завдання і хочу викреслити його зі свого переліку завдань",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Так",
+                        cancelButtonText: "Ні",
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("EndTask")',
+                                data: { id: data.id },
+                                success: function (response) {
+                                    Swal.fire({
+                                        title: 'Інформація',
+                                        text: response.description,
+                                        icon: 'success',
+                                        confirmButtonText: 'Добре'
+                                    });
+                                    window.dataTable.draw();
+                                },
+                                error: function (response) {
+                                    Swal.fire({
+                                        title: 'Інформація',
+                                        text: response.responseJSON.description,
+                                        icon: 'error',
+                                        confirmButtonText: 'Добре'
+                                    });
+                                }
+                            });
+                        }
+                    });
+                };
 
-                 
-                 for (let i = 0; i < window.dataTable.columns().header().length - 1; i++) {
-                     $('td', nRow).eq(i).css('cursor', 'pointer');
+                // Обробка кліків на рядки таблиці та кнопки "Виконати"
+                for (let i = 0; i < window.dataTable.columns().header().length - 1; i++) {
+                    $('td', nRow).eq(i).css('cursor', 'pointer');
 
-                     $('td', nRow).eq(i).on('click', function () {
-                         redirectToDetailPage(data.id);
-                     });
-                 }
+                    $('td', nRow).eq(i).on('click', function () {
+                        redirectToDetailPage(data.id);
+                    });
+                }
 
-                 $('td button', nRow).on('click', handlerComplete);
-             }
+                $('td button', nRow).on('click', handlerComplete);
+            },
+});
 
-         });
-        
-        
-        $('input[name="nameTask"]').on('change', function (){
+        // Події зміни значень фільтрів для оновлення таблиці
+        $('input[name="nameTask"]').on('input', function () {
             window.dataTable.draw();
-        })
-        
-        $('#prioritySearch').on('change', function (){
+        });
+
+        $('#prioritySearch').on('change', function () {
             window.dataTable.draw();
-        })
-    
-    
+        });
+
+
+
         $('#createTask').on('click', function (e){
             e.preventDefault();
             $.ajax({

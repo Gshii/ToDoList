@@ -78,6 +78,7 @@ public class TaskService : ITaskService
         {
             var tasks = await _taskRepository.GetAll()
                 .Where(x=> !x.IsDone)
+                .Where(x => x.Created.Date == DateTime.Today)
                 .WhereIf(!string.IsNullOrWhiteSpace(filter.Name), x => x.Name == filter.Name)
                 .WhereIf(filter.Priority.HasValue, x => x.Priority == filter.Priority)
                 .Select(x=> new TaskViewModel()
