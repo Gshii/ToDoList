@@ -19,4 +19,6 @@ public interface IBaseRepository<T>
 
     //Оновлення об'єкту в БД
     Task<T> Update(T entity);
+    
+    Task<T> GetByIdAsync(long id);
 }

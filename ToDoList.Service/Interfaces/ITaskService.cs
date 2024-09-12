@@ -16,4 +16,10 @@ public interface ITaskService
     Task<IBaseResponse<IEnumerable<TaskCompletedViewModel>>> GetCompletedTasks();
 
     Task<IBaseResponse<IEnumerable<TaskViewModel>>> CalculateCompletedTasks();
+    
+    Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id);
+    
+    Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id);
+
+    Task<IBaseResponse<bool>> UpdateTask(TaskViewModel model);
 }

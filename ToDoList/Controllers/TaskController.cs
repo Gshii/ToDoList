@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ToDoList.Domain.Filters.Task;
 using ToDoList.Domain.Helpers;
 using ToDoList.Domain.ViewModel;
+using ToDoList.Domain.Enum;
 using ToDoList.Models;
 using ToDoList.Service.Implementations;
 using ToDoList.Service.Interfaces;
@@ -85,4 +86,36 @@ public class TaskController : Controller
         return BadRequest(new { description = response.Description});
     }
 
+    public async Task<IActionResult> DetailDescription(long id)
+    {
+        var response = await _taskService.GetDetailedTask(id);
+        
+        return View(response.Data);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> TaskEditPage(long id)
+    {
+        var task = await _taskService.GetByIdAsync(id);
+        if (task.StatusCode != Domain.Enum.StatusCode.OK || task.Data == null)
+        {
+            return View("Error");
+        }
+        
+        return View(task.Data);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TaskEditPage(TaskViewModel model)
+    {
+        if (!ModelState.IsValid && model.Created != null)
+        {
+            ModelState.AddModelError("", "Не можливо змінити");
+            return View(model);
+        }
+
+        await _taskService.UpdateTask(model);
+        return View(model);
+    }
+    
 }
