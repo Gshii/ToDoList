@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoList;
 using ToDoList.DAL;
+using Microsoft.AspNetCore.Identity;
+using ToDoList.Areas.Identity.Data;
+using ToDoList.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ToDoListContext>();
 
 var app = builder.Build();
 

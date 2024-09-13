@@ -1,16 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using ToDoList.Areas.Identity.Data;
 using ToDoList.Domain.Entity;
 
-namespace ToDoList.DAL;
-
-public class AppDbContext : DbContext
+namespace ToDoList.DAL
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
-        Database.EnsureCreated();
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
+        }
+
+        // Add DbSet for TaskEntity
+        public DbSet<TaskEntity> Tasks { get; set; }
     }
-
-
-    public DbSet<TaskEntity> Tasks { get; set; }
 }
