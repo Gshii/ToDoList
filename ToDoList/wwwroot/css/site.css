@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.readonly-input {
+  background-color: #E25561 !important; 
+  border: 1px solid #f5c6cb; 
+  pointer-events: none; 
+}
+

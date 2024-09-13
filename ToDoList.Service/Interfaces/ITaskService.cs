@@ -22,4 +22,6 @@ public interface ITaskService
     Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id);
 
     Task<IBaseResponse<bool>> UpdateTask(TaskViewModel model);
+    
+    Task<IBaseResponse<bool>> DeleteTask(TaskViewModel model);
 }

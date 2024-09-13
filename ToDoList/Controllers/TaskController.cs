@@ -117,5 +117,29 @@ public class TaskController : Controller
         await _taskService.UpdateTask(model);
         return View(model);
     }
+    [HttpGet]
+    public async Task<IActionResult> TaskDeletePage(long id)
+    {
+        var task = await _taskService.GetByIdAsync(id);
+        if (task.StatusCode != Domain.Enum.StatusCode.OK || task.Data == null)
+        {
+            return View("Error");
+        }
+        
+        return View(task.Data);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> TaskDeletePage(TaskViewModel model)
+    {
+        if (!ModelState.IsValid && model.Created != null)
+        {
+            ModelState.AddModelError("", "Не можливо видалити");
+            return View(model);
+        }
+
+        await _taskService.DeleteTask(model);
+        return View(model);
+    }
     
 }

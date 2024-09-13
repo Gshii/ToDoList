@@ -174,3 +174,6 @@ C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\runtimes\b
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\obj\Debug\net8.0\ToDoList.sourcelink.json
 C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\bin\Debug\net8.0\ToDoList.staticwebassets.endpoints.json
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\popug\my space\ASPLessons\ToDoList\ToDoList\obj\Debug\net8.0\staticwebassets\msbuild.ToDoList.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

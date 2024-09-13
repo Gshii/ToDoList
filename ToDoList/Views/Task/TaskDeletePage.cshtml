@@ -1,0 +1,32 @@
+﻿@using ToDoList.Domain.Enum
+@model ToDoList.Domain.ViewModel.TaskViewModel
+
+@{
+    ViewData["Title"] = "Видалити";
+}
+
+
+<form method="post" asp-action="TaskDeletePage" enctype="multipart/form-data">
+    <input type="hidden" value="@Model.Id" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name">Title</label>
+        <input asp-for="Name" class="form-control readonly-input" placeholder="Назва" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Опис</label>
+        <input asp-for="Description" class="form-control readonly-input" placeholder="Description" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority">Пріоритет</label>
+        <select asp-for="Priority" asp-items="@Html.GetEnumSelectList<Priority>()" class="form-control readonly-input" disabled>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsDone">Стадія виконання</label>
+        <div>
+            <input asp-for="IsDone" type="radio" value="true" class="readonly-input" disabled /> Виконано
+            <input asp-for="IsDone" type="radio" value="false" class="readonly-input" checked disabled /> Не виконано
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Видалити</button>
+</form>

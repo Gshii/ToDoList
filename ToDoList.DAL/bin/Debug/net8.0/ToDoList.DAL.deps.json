@@ -1024,7 +1024,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0-preview.7.24405.3"
         },
         "runtime": {
-          "ToDoList.Domain.dll": {}
+          "ToDoList.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
