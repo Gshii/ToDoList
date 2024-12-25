@@ -7,9 +7,9 @@ namespace ToDoList.Service.Interfaces;
 
 public interface ITaskService
 {
-    Task<IBaseResponse<TaskEntity>> Create(CreateTaskViewModel model);
+    Task<IBaseResponse<TaskEntity>> Create(CreateTaskViewModel model, string userId);
     
-    Task<DataTableResult> GetTasks(TaskFilter filter);
+    Task<DataTableResult> GetTasks(TaskFilter filter, string userId);
 
     Task<IBaseResponse<bool>> EndTask(long id);
 
@@ -17,9 +17,9 @@ public interface ITaskService
 
     Task<IBaseResponse<IEnumerable<TaskViewModel>>> CalculateCompletedTasks();
     
-    Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id);
+    Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id, string userId);
     
-    Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id);
+    Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id, string userId);
 
     Task<IBaseResponse<bool>> UpdateTask(TaskViewModel model);
     

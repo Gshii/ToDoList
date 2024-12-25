@@ -24,7 +24,7 @@ public class TaskService : ITaskService
         _logger = logger;
     }
 
-    public async Task<IBaseResponse<TaskEntity>> Create(CreateTaskViewModel model)
+    public async Task<IBaseResponse<TaskEntity>> Create(CreateTaskViewModel model, string userId)
     {
         try
         {
@@ -32,7 +32,10 @@ public class TaskService : ITaskService
             
             
             _logger.LogInformation($"Запит на створення завдання - {model.Name}");
-            var task = await _taskRepository.GetAll().Where(x => x.Created.Date == DateTime.Today).FirstOrDefaultAsync(x => x.Name == model.Name);
+            var task = await _taskRepository.GetAll()
+                .Where(i => i.AppUserId == userId)
+                .Where(x => x.Created.Date == DateTime.Today)
+                .FirstOrDefaultAsync(x => x.Name == model.Name);
 
             if (task != null)
             {
@@ -48,8 +51,8 @@ public class TaskService : ITaskService
                 Name = model.Name,
                 Description = model.Description,
                 Priority = model.Priority,
-                Created = DateTime.Now
-                
+                Created = DateTime.Now,
+                AppUserId = userId,
             };
 
             await _taskRepository.Create(task);
@@ -72,11 +75,12 @@ public class TaskService : ITaskService
         }
     }
 
-    public async Task<DataTableResult> GetTasks(TaskFilter filter)
+    public async Task<DataTableResult> GetTasks(TaskFilter filter, string userId)
     {
         try
         {
             var tasks = await _taskRepository.GetAll()
+                .Where(i => i.AppUserId == userId)
                 .Where(x=> !x.IsDone)
                 .Where(x => x.Created.Date == DateTime.Today)
                 .WhereIf(!string.IsNullOrWhiteSpace(filter.Name), x => x.Name == filter.Name)
@@ -207,11 +211,14 @@ public class TaskService : ITaskService
         }
     }
 
-    public async Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id)
+    public async Task<IBaseResponse<TaskViewModel>> GetDetailedTask(long id, string userId)
     {
         try
         {
-            var task = await _taskRepository.GetAll().Where(x => x.Id == id)
+            var task = await _taskRepository
+                .GetAll()
+                .Where(i => i.AppUserId == userId)
+                .Where(x => x.Id == id)
                 .Select(x => new TaskViewModel()
                 {
                     Id = x.Id,
@@ -238,11 +245,22 @@ public class TaskService : ITaskService
         }
     }
     
-    public async Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id)
+    public async Task<IBaseResponse<TaskViewModel>> GetByIdAsync(long id, string userId)
     {
         try
         {
-            var task = await _taskRepository.GetByIdAsync(id);
+            var task = await _taskRepository
+                .GetByIdAsync(id);
+            
+            if (task.AppUserId != userId)
+            {
+                return new BaseResponse<TaskViewModel>()
+                {
+                    StatusCode = StatusCode.TaskWasNotFound,
+                    Description = "У вас немає доступу до цього завдання"
+                };
+            }
+            
             var taskview = new TaskViewModel()
             {
                 Id = task.Id,

@@ -18,9 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using ToDoList.Areas.Identity.Data;
+using ToDoList.Domain.Entity;
 
-namespace ToDoList.Areas.Identity.Pages.Account
+namespace AuthorizationAppMVC.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -76,6 +76,16 @@ namespace ToDoList.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Ім'я")]
+            public string FirstName { get; set; }
+            
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Прізвище")]
+            public string LastName { get; set; }
+            
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -114,6 +124,9 @@ namespace ToDoList.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

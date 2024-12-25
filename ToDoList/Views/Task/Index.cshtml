@@ -104,7 +104,6 @@
                 },
             ],
             createdRow: function (nRow, data) {
-                // Сама логіка обробки рядка залишилася незмінною
                 var handlerComplete = function () {
                     swalWithBootstrapButtons.fire({
                         title: "Завершити завдання?",
@@ -141,8 +140,8 @@
                         }
                     });
                 };
-
-                // Обробка кліків на рядки таблиці та кнопки "Виконати"
+                
+                
                 for (let i = 0; i < window.dataTable.columns().header().length - 1; i++) {
                     $('td', nRow).eq(i).css('cursor', 'pointer');
 
@@ -155,7 +154,6 @@
             },
 });
 
-        // Події зміни значень фільтрів для оновлення таблиці
         $('input[name="nameTask"]').on('input', function () {
             window.dataTable.draw();
         });

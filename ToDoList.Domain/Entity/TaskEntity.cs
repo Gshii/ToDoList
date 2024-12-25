@@ -1,4 +1,5 @@
-﻿using ToDoList.Domain.Enum;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ToDoList.Domain.Enum;
 
 namespace ToDoList.Domain.Entity;
 
@@ -10,4 +11,9 @@ public class TaskEntity
     public string Description { get; set; }
     public Priority Priority { get; set; }
     public DateTime Created { get; set; }
+    
+    public string AppUserId { get; set; }
+    
+    [ForeignKey("AppUserId")]
+    public AppUser AppUser { get; set; }
 }

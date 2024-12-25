@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ToDoList.Areas.Identity.Data;
+using ToDoList.Domain.Entity;
 
 namespace ToDoList.Areas.Identity.Pages.Account
 {
@@ -125,7 +125,7 @@ namespace ToDoList.Areas.Identity.Pages.Account
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    return RedirectToPage("/Identity/Account/Login");
                 }
                 else
                 {
