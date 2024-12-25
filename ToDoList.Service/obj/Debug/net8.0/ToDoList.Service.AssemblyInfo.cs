@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ToDoList.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+493edc032bed4604ebdfd00d26cc8e4425b03748")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d38d8b20df630b472b10c462bc61801a91824f75")]
 [assembly: System.Reflection.AssemblyProductAttribute("ToDoList.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ToDoList.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
