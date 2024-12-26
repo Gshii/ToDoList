@@ -13,7 +13,7 @@ public class AppUser : IdentityUser
     [Column(TypeName = "nvarchar(100)")]
     public string LastName { get; set; }
     
-    public TaskEntity Task { get; set; }
+    public ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>();
 
 }
 

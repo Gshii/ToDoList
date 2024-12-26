@@ -24,4 +24,8 @@
       <ProjectReference Include="..\ToDoList.Service\ToDoList.Service.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Areas\Identity\Pages\Account\" />
+    </ItemGroup>
+
 </Project>

@@ -84,9 +84,8 @@
                 url: "@Url.Action("TaskHandler")",
                 method: "POST",
                 data: function(d) {
-                    // Збирання фільтрів
                     d.Name = $('input[name="nameTask"]').val();
-                    d.Priority = $('#prioritySearch').val(); // зчитування значення фільтра пріоритету
+                    d.Priority = $('#prioritySearch').val();
                 },
             },
             columns: [

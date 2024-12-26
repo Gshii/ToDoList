@@ -132,7 +132,8 @@ public class TaskController : Controller
         }
 
         await _taskService.UpdateTask(model);
-        return View(model);
+        /*return View(model);*/
+        return RedirectToAction("Index");
     }
     [HttpGet]
     public async Task<IActionResult> TaskDeletePage(long id)
@@ -159,7 +160,8 @@ public class TaskController : Controller
         }
 
         await _taskService.DeleteTask(model);
-        return View(model);
+        /*return View(model);*/
+        return RedirectToAction("Index");
     }
     
 }
