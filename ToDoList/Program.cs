@@ -27,7 +27,7 @@ builder.Services.AddSession();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Identity/Account/Login";
+    options.LoginPath = "/Auth/Login";
 
 });
 
